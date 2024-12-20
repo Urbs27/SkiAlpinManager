@@ -1,0 +1,40 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h2><%= team.name %></h2>
+            <a href="/team/edit/<%= team.id %>" class="btn btn-primary">Bearbeiten</a>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="competition-info">
+                        <h3>Team-Informationen</h3>
+                        <p><strong>Nation:</strong> <%= team.nation %></p>
+                        <p><strong>Stadt:</strong> <%= team.city %></p>
+                        <p><strong>Budget:</strong> <%= team.budget.toLocaleString() %> €</p>
+                        <p><strong>Reputation:</strong> <%= team.reputation %>%</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="stats-card">
+                        <h3>Reputation</h3>
+                        <div class="progress mb-3">
+                            <div class="progress-bar" role="progressbar" 
+                                 style="width: <%= team.reputation %>%"
+                                 aria-valuenow="<%= team.reputation %>" 
+                                 aria-valuemin="0" 
+                                 aria-valuemax="100">
+                                <%= team.reputation %>%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %> 

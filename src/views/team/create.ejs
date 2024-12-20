@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <div class="registration-form">
+        <h1>Neues Team erstellen</h1>
+        
+        <% if (typeof error !== 'undefined') { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <form action="/team/create" method="POST">
+            <div class="form-group mb-3">
+                <label for="name">Teamname</label>
+                <input type="text" class="form-control" id="name" name="name" 
+                       value="<%= typeof formData !== 'undefined' ? formData.name : '' %>" required>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="nation">Nation</label>
+                <select class="form-control" id="nation" name="nation" required>
+                    <option value="GER" <%= typeof formData !== 'undefined' && formData.nation === 'GER' ? 'selected' : '' %>>Deutschland</option>
+                    <option value="AUT" <%= typeof formData !== 'undefined' && formData.nation === 'AUT' ? 'selected' : '' %>>Österreich</option>
+                    <option value="SUI" <%= typeof formData !== 'undefined' && formData.nation === 'SUI' ? 'selected' : '' %>>Schweiz</option>
+                    <option value="ITA" <%= typeof formData !== 'undefined' && formData.nation === 'ITA' ? 'selected' : '' %>>Italien</option>
+                    <option value="FRA" <%= typeof formData !== 'undefined' && formData.nation === 'FRA' ? 'selected' : '' %>>Frankreich</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="city">Stadt</label>
+                <input type="text" class="form-control" id="city" name="city" 
+                       value="<%= typeof formData !== 'undefined' ? formData.city : '' %>" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Team erstellen</button>
+                <a href="/dashboard" class="btn btn-secondary">Abbrechen</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('../partials/footer') %> 

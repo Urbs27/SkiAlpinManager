@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/rennen">Rennen</a>
+        </div>
+
+        <div class="race-details">
+            <h1><%= race.name %></h1>
+
+            <div class="race-info">
+                <p><strong>Ort:</strong> <%= race.location %></p>
+                <p><strong>Disziplin:</strong> <%= race.discipline %></p>
+                <p><strong>Datum:</strong> <%= new Date(race.start_date).toLocaleDateString() %></p>
+                <p><strong>Status:</strong> <%= race.status %></p>
+            </div>
+
+            <% if (race.track_name) { %>
+                <div class="track-info">
+                    <h2>Streckeninfo</h2>
+                    <p><strong>Name:</strong> <%= race.track_name %></p>
+                    <p><strong>Länge:</strong> <%= race.length %>m</p>
+                    <p><strong>Höhendifferenz:</strong> <%= race.altitude_diff %>m</p>
+                </div>
+            <% } %>
+
+            <div class="participants-section">
+                <h2>Teilnehmer (<%= participants.length %>)</h2>
+                <% if (participants.length > 0) { %>
+                    <table class="participants-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Team</th>
+                                <th>FIS-Punkte</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% participants.forEach(participant => { %>
+                                <tr>
+                                    <td><%= participant.name %></td>
+                                    <td><%= participant.team %></td>
+                                    <td><%= participant[`fis_points_${race.discipline.toLowerCase()}`] || 999 %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p class="no-participants">Noch keine Teilnehmer angemeldet</p>
+                <% } %>
+            </div>
+
+            <div class="race-actions">
+                <a href="/rennen/<%= race.id %>/register" class="button">Jetzt anmelden</a>
+                <a href="/rennen/<%= race.id %>/startlist" class="button">Startliste</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

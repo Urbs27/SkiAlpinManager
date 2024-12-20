@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <div class="registration-form">
+        <h1>Team bearbeiten</h1>
+        
+        <% if (typeof error !== 'undefined') { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <form action="/team/update/<%= team.id %>" method="POST">
+            <div class="form-group mb-3">
+                <label for="name">Teamname</label>
+                <input type="text" class="form-control" id="name" name="name" 
+                       value="<%= team.name %>" required>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="nation">Nation</label>
+                <select class="form-control" id="nation" name="nation" required>
+                    <option value="GER" <%= team.nation === 'GER' ? 'selected' : '' %>>Deutschland</option>
+                    <option value="AUT" <%= team.nation === 'AUT' ? 'selected' : '' %>>Österreich</option>
+                    <option value="SUI" <%= team.nation === 'SUI' ? 'selected' : '' %>>Schweiz</option>
+                    <option value="ITA" <%= team.nation === 'ITA' ? 'selected' : '' %>>Italien</option>
+                    <option value="FRA" <%= team.nation === 'FRA' ? 'selected' : '' %>>Frankreich</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="city">Stadt</label>
+                <input type="text" class="form-control" id="city" name="city" 
+                       value="<%= team.city %>" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Speichern</button>
+                <a href="/team/details/<%= team.id %>" class="btn btn-secondary">Abbrechen</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('../partials/footer') %> 

@@ -1,0 +1,50 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2><%= team.name %></h2>
+                </div>
+                <div class="card-body">
+                    <div class="stats-grid">
+                        <div class="stats-card">
+                            <h3>Budget</h3>
+                            <p class="h4"><%= team.budget.toLocaleString() %> €</p>
+                        </div>
+                        <div class="stats-card">
+                            <h3>Reputation</h3>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: <%= team.reputation %>%"
+                                     aria-valuenow="<%= team.reputation %>" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                    <%= team.reputation %>%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Aktionen</h3>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="/team/edit/<%= team.id %>" class="btn btn-primary">Team bearbeiten</a>
+                        <a href="/players" class="btn btn-secondary">Athleten verwalten</a>
+                        <a href="/competitions" class="btn btn-info">Wettkämpfe</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %> 

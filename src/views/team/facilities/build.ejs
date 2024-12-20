@@ -1,0 +1,23 @@
+<%- include('../../partials/header') %>
+
+<div class="container mt-4">
+    <h1>Neue Einrichtung für <%= team.name %> bauen</h1>
+    
+    <% if (error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+    <% } %>
+
+    <form action="/team/<%= team.id %>/facilities/build" method="POST">
+        <div class="form-group mb-3">
+            <label for="facilityType">Einrichtungstyp</label>
+            <select class="form-control" id="facilityType" name="facilityType" required>
+                <option value="training_center">Trainingszentrum</option>
+                <option value="medical_center">Medizinisches Zentrum</option>
+                <option value="workshop">Ski-Werkstatt</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Bauen</button>
+    </form>
+</div>
+
+<%- include('../../partials/footer') %> 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> | Ski Alpin Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body class="auth-page">
+    <%- include('../partials/header') %>
+
+    <main class="container">
+        <div class="auth-container">
+            <div class="auth-box">
+                <div class="auth-header">
+                    <h1>Registriere dich jetzt!</h1>
+                    <p class="auth-subtitle">Erstelle ein Konto, um deinen Ski-Club zu managen</p>
+                </div>
+
+                <% if (error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <%= error %>
+                    </div>
+                <% } %>
+
+                <form action="/auth/register" method="POST" class="auth-form">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    
+                    <div class="form-group">
+                        <label for="username">
+                            <i class="fas fa-user"></i>
+                            Benutzername
+                        </label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="username" 
+                            name="username" 
+                            value="<%= username %>" 
+                            required
+                            autocomplete="username"
+                            placeholder="Wähle einen Benutzernamen"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i>
+                            E-Mail-Adresse
+                        </label>
+                        <input 
+                            type="email" 
+                            class="form-control" 
+                            id="email" 
+                            name="email" 
+                            value="<%= email %>" 
+                            required
+                            autocomplete="email"
+                            placeholder="Deine E-Mail-Adresse"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fas fa-lock"></i>
+                            Passwort
+                        </label>
+                        <div class="password-input-group">
+                            <input 
+                                type="password" 
+                                class="form-control" 
+                                id="password" 
+                                name="password" 
+                                required
+                                autocomplete="new-password"
+                                placeholder="Erstelle ein Passwort"
+                            >
+                            <button type="button" class="password-toggle" aria-label="Passwort anzeigen">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="auth-actions">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-user-plus"></i>
+                            Registrieren
+                        </button>
+                    </div>
+                </form>
+
+                <div class="auth-separator">
+                    <span>oder</span>
+                </div>
+
+                <div class="social-login">
+                    <button class="btn btn-google">
+                        <img src="/images/google-icon.svg" alt="Google">
+                        Mit Google registrieren
+                    </button>
+                </div>
+
+                <div class="auth-footer">
+                    <p>Bereits ein Konto? 
+                        <a href="/auth/login" class="login-link">
+                            Jetzt einloggen
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+    <script src="/js/auth.js"></script>
+    <script>
+        // Password toggle functionality
+        document.querySelector('.password-toggle').addEventListener('click', function() {
+            const input = document.querySelector('#password');
+            const icon = this.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
+    </script>
+</body>
+</html> 

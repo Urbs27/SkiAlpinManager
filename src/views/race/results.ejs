@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/player">Skifahrer</a>
+            <a href="/rennen" class="active">Rennen</a>
+        </div>
+
+        <div class="race-results">
+            <h1>Rennergebnisse: <%= race.name %></h1>
+            <p class="race-info">
+                <span class="location"><%= race.location %></span> |
+                <span class="discipline"><%= race.discipline %></span> |
+                <span class="date"><%= new Date(race.start_date).toLocaleDateString() %></span>
+            </p>
+
+            <% if (results && results.length > 0) { %>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Skifahrer</th>
+                            <th>Team</th>
+                            <th>Zeit</th>
+                            <th>Punkte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% results.forEach(result => { %>
+                            <tr>
+                                <td><%= result.rank %></td>
+                                <td><%= result.player_name %></td>
+                                <td><%= result.team %></td>
+                                <td><%= result.time.toFixed(2) %>s</td>
+                                <td><%= result.points %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p>Keine Ergebnisse verfügbar.</p>
+            <% } %>
+
+            <div class="actions">
+                <a href="/rennen" class="button">Zurück zur Übersicht</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

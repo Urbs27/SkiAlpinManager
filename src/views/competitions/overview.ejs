@@ -1,0 +1,64 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <h1>FIS Wettkämpfe</h1>
+    
+    <div class="competition-filters mb-4">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-primary active">Alle</button>
+            <button type="button" class="btn btn-outline-primary">Abfahrt</button>
+            <button type="button" class="btn btn-outline-primary">Super-G</button>
+            <button type="button" class="btn btn-outline-primary">Riesenslalom</button>
+            <button type="button" class="btn btn-outline-primary">Slalom</button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Datum</th>
+                    <th>Ort</th>
+                    <th>Disziplin</th>
+                    <th>Kategorie</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% competitions.forEach(competition => { %>
+                    <tr>
+                        <td>
+                            <%= new Date(competition.start_date).toLocaleDateString('de-DE') %>
+                            <small class="text-muted d-block">
+                                <%= new Date(competition.start_date).toLocaleTimeString('de-DE', {hour: '2-digit', minute:'2-digit'}) %>
+                            </small>
+                        </td>
+                        <td>
+                            <%= competition.location %>
+                            <small class="text-muted d-block"><%= competition.country %></small>
+                        </td>
+                        <td>
+                            <span class="badge bg-primary"><%= competition.discipline %></span>
+                        </td>
+                        <td><%= competition.category %></td>
+                        <td>
+                            <% if (competition.status === 'upcoming') { %>
+                                <span class="badge bg-warning">Anstehend</span>
+                            <% } else if (competition.status === 'in_progress') { %>
+                                <span class="badge bg-success">Läuft</span>
+                            <% } else { %>
+                                <span class="badge bg-secondary">Beendet</span>
+                            <% } %>
+                        </td>
+                        <td>
+                            <a href="/competitions/<%= competition.id %>" class="btn btn-sm btn-primary">Details</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('../partials/footer') %> 

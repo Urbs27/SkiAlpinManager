@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/" class="active">Home</a>
+            <a href="/player">Meine Skifahrer</a>
+            <a href="/rennen">Rennen</a>
+            <a href="/auth/logout" class="logout">Logout</a>
+        </div>
+
+        <div class="welcome-section">
+            <h1>Willkommen beim Ski Alpin Manager</h1>
+            
+            <div class="quick-actions">
+                <a href="/player" class="action-card">
+                    <h2>Meine Skifahrer</h2>
+                    <p>Verwalte deine Skifahrer und trainiere sie</p>
+                </a>
+                
+                <a href="/rennen" class="action-card">
+                    <h2>Rennen</h2>
+                    <p>Finde Rennen und melde deine Skifahrer an</p>
+                </a>
+                
+                <a href="/player/create" class="action-card">
+                    <h2>Neuer Skifahrer</h2>
+                    <p>Erstelle einen neuen Skifahrer für dein Team</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

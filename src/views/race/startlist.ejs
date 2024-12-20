@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/rennen">Rennen</a>
+        </div>
+
+        <h1>Startliste - <%= race.name %></h1>
+
+        <div class="race-details">
+            <p><strong>Ort:</strong> <%= race.location %></p>
+            <p><strong>Disziplin:</strong> <%= race.discipline %></p>
+            <p><strong>Datum:</strong> <%= new Date(race.start_date).toLocaleDateString() %></p>
+        </div>
+
+        <div class="startlist">
+            <% if (participants && participants.length > 0) { %>
+                <table class="startlist-table">
+                    <thead>
+                        <tr>
+                            <th>Nr.</th>
+                            <th>Name</th>
+                            <th>Nation</th>
+                            <th>FIS-Punkte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% participants.forEach((participant, index) => { %>
+                            <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= participant.name %></td>
+                                <td><%= participant.team %></td>
+                                <td><%= participant[`fis_points_${race.discipline}`] || 999 %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p class="no-participants">Noch keine Teilnehmer angemeldet</p>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html> 

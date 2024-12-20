@@ -1,0 +1,72 @@
+<%- include('../partials/header') %>
+
+<div class="live-timing">
+    <div class="competition-header">
+        <img src="/images/fis-logo.png" alt="FIS Logo" class="fis-logo">
+        <h1><%= competition.name %> - Zwischenzeiten</h1>
+        <div class="competition-info">
+            <div>
+                <strong>Disziplin:</strong> <%= competition.discipline %>
+            </div>
+            <div>
+                <strong>Ort:</strong> <%= competition.location %>, <%= competition.country %>
+            </div>
+            <div>
+                <strong>Datum:</strong> <%= new Date(competition.start_date).toLocaleDateString('de-DE') %>
+            </div>
+            <div>
+                <strong>Status:</strong> <span class="live-indicator">Live</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="results-section">
+        <h2>Zwischenzeiten</h2>
+        <div class="table-responsive">
+            <table class="results-table" id="intermediate-table">
+                <thead>
+                    <tr>
+                        <th>Bib</th>
+                        <th>Name</th>
+                        <th>Nation</th>
+                        <% for (let i = 1; i <= competition.split_count; i++) { %>
+                            <th>Zwischenzeit <%= i %></th>
+                        <% } %>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% results.forEach(result => { %>
+                        <tr data-bib="<%= result.bib %>">
+                            <td><%= result.bib %></td>
+                            <td>
+                                <%= result.last_name.toUpperCase() %> <%= result.first_name %>
+                                <img src="/images/flags/<%= result.nationality.toLowerCase() %>.png" alt="<%= result.nationality %>" class="nation-flag">
+                            </td>
+                            <td><%= result.nationality %></td>
+                            <% for (let i = 1; i <= competition.split_count; i++) { %>
+                                <td class="split-time" data-bib="<%= result.bib %>" data-split="<%= i %>">
+                                    <%= result[`split${i}_time`] ? result[`split${i}_time`].toFixed(2) : '--.--' %>
+                                </td>
+                            <% } %>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="sponsor-banner">
+        <img src="/images/sponsors/sponsor1.png" alt="Sponsor 1">
+        <img src="/images/sponsors/sponsor2.png" alt="Sponsor 2">
+        <img src="/images/sponsors/sponsor3.png" alt="Sponsor 3">
+    </div>
+</div>
+
+<script src="/js/live-timing.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const liveTiming = new LiveTiming(<%= competition.id %>, '<%= req.user ? req.user.token : '' %>');
+    });
+</script>
+
+<%- include('../partials/footer') %> 

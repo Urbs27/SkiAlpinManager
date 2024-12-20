@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/player">Skifahrer</a>
+            <a href="/training/<%= player.id %>">Zurück zum Training</a>
+        </div>
+
+        <h1>Trainingsergebnis</h1>
+
+        <div class="results-container">
+            <div class="results-section">
+                <h2>Trainingslauf</h2>
+                <p><strong>Strecke:</strong> <%= track.name %></p>
+                <p><strong>Zeit:</strong> <%= Math.floor(trainingTime/60) %>:<%= (trainingTime%60).toString().padStart(2,'0') %> min</p>
+                <p><strong>Erfahrung:</strong> +<%= results.experience %> XP</p>
+            </div>
+
+            <% if (results.injury) { %>
+                <div class="results-section error">
+                    <h2>⚠️ Verletzung!</h2>
+                    <p>Dein Skifahrer hat sich beim Training verletzt und muss pausieren.</p>
+                </div>
+            <% } %>
+
+            <div class="results-section">
+                <h2>Attribut-Verbesserungen</h2>
+                <div class="improvements-list">
+                    <% Object.entries(results.attributes).forEach(function([attr, improvement]) { %>
+                        <div class="improvement-item">
+                            <span><%= attr %>:</span>
+                            <span class="improvement">+<%= improvement.toFixed(2) %></span>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h2>Status</h2>
+                <div class="status-item">
+                    <span>Ermüdung:</span>
+                    <div class="stat-bar">
+                        <div class="stat-fill fatigue" style="width: <%= results.fatigue %>%"></div>
+                        <span class="stat-value"><%= results.fatigue %>%</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <span>Verletzungsrisiko:</span>
+                    <div class="stat-bar">
+                        <div class="stat-fill risk" style="width: <%= results.injuryRisk %>%"></div>
+                        <span class="stat-value"><%= results.injuryRisk %>%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/training/<%= player.id %>" class="button">Weiter trainieren</a>
+            <a href="/player/<%= player.id %>" class="button secondary">Zum Profil</a>
+        </div>
+    </div>
+</body>
+</html> 

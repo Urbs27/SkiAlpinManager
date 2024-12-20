@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/competition">Wettkämpfe</a>
+        </div>
+
+        <h1>Weltcup-Standings</h1>
+
+        <h2>Disziplinenwertung - <%= discipline %></h2>
+        <table class="standings-table">
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Name</th>
+                    <th>Nation</th>
+                    <th>Punkte</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% disciplineStandings.forEach((standing, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= standing.player_name %></td>
+                        <td><%= standing.team %></td>
+                        <td><%= standing.points %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <h2>Gesamtwertung</h2>
+        <table class="standings-table">
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Name</th>
+                    <th>Nation</th>
+                    <th>Punkte</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% overallStandings.forEach((standing, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= standing.player_name %></td>
+                        <td><%= standing.team %></td>
+                        <td><%= standing.points %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html> 

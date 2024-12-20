@@ -1,0 +1,208 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <div class="player-header">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1>
+                    <%= player.first_name %> <%= player.last_name %>
+                    <small class="text-muted">
+                        <img src="/images/flags/<%= player.nationality.toLowerCase() %>.png" 
+                             alt="<%= player.nationality %>" 
+                             class="nation-flag">
+                        <%= player.nationality %>
+                    </small>
+                </h1>
+                <div class="player-meta">
+                    <span class="me-3">
+                        <i class="fas fa-id-card"></i> FIS: <%= player.fis_code %>
+                    </span>
+                    <span class="me-3">
+                        <i class="fas fa-calendar"></i> 
+                        <%= new Date(player.birth_date).toLocaleDateString('de-DE') %>
+                    </span>
+                    <span>
+                        <i class="fas fa-users"></i> 
+                        <%= player.team_name %>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-4 text-end">
+                <a href="/players/<%= player.id %>/edit" class="btn btn-primary">
+                    <i class="fas fa-edit"></i> Bearbeiten
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <!-- Basis-Attribute -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Basis-Attribute</h5>
+                </div>
+                <div class="card-body">
+                    <div class="attribute-grid">
+                        <div class="attribute-item">
+                            <label>Technik</label>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: <%= player.technik %>%">
+                                    <%= player.technik %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="attribute-item">
+                            <label>Kraft</label>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: <%= player.kraft %>%">
+                                    <%= player.kraft %>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Weitere Basis-Attribute -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ski-Attribute -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Ski-Attribute</h5>
+                </div>
+                <div class="card-body">
+                    <div class="attribute-grid">
+                        <div class="attribute-item">
+                            <label>Gleittechnik</label>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: <%= player.gleittechnik %>%">
+                                    <%= player.gleittechnik %>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Weitere Ski-Attribute -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disziplin-Attribute -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Disziplinen</h5>
+                </div>
+                <div class="card-body">
+                    <div class="attribute-grid">
+                        <div class="attribute-item">
+                            <label>Abfahrt</label>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: <%= player.dh_skill %>%">
+                                    <%= player.dh_skill %>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Weitere Disziplin-Attribute -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form und Fitness -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Aktuelle Form</h5>
+                </div>
+                <div class="card-body">
+                    <div class="attribute-grid">
+                        <div class="attribute-item">
+                            <label>Form</label>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: <%= player.form %>%">
+                                    <%= player.form %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="attribute-item">
+                            <label>Fitness</label>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: <%= player.fitness %>%">
+                                    <%= player.fitness %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="attribute-item">
+                            <label>Müdigkeit</label>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" style="width: <%= player.müdigkeit %>%">
+                                    <%= player.müdigkeit %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Verletzungen -->
+    <% if (player.injuries && player.injuries.length > 0) { %>
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Aktuelle Verletzungen</h5>
+            </div>
+            <div class="card-body">
+                <% player.injuries.forEach(injury => { %>
+                    <div class="injury-item">
+                        <h6><%= injury.injury_type %></h6>
+                        <p>Schweregrad: <%= injury.severity %>/5</p>
+                        <p>Erwartete Rückkehr: <%= new Date(injury.expected_return_date).toLocaleDateString('de-DE') %></p>
+                        <% if (injury.notes) { %>
+                            <p class="text-muted"><%= injury.notes %></p>
+                        <% } %>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- Saisonstatistiken -->
+    <% if (player.history) { %>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">Saisonstatistiken</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Saison</th>
+                                <th>Wettkämpfe</th>
+                                <th>Podien</th>
+                                <th>Siege</th>
+                                <th>Beste Platzierung</th>
+                                <th>FIS Punkte</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><%= player.history.season %></td>
+                                <td><%= player.history.competition_count %></td>
+                                <td><%= player.history.podiums %></td>
+                                <td><%= player.history.wins %></td>
+                                <td><%= player.history.best_rank %></td>
+                                <td><%= player.history.avg_fis_points.toFixed(2) %></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+<%- include('../partials/footer') %> 

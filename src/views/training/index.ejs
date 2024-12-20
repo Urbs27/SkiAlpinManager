@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/player">Skifahrer</a>
+        </div>
+
+        <h1>Training - <%= player.name %></h1>
+
+        <div class="player-stats">
+            <div class="stat">
+                <span>Form:</span>
+                <div class="stat-bar">
+                    <div class="stat-fill" style="width: <%= player.form || 0 %>%"></div>
+                    <span class="stat-value"><%= player.form || 0 %></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tracks-grid">
+            <% tracks.forEach(function(track) { %>
+                <div class="track-card">
+                    <h2><%= track.name %></h2>
+                    <p class="location"><%= track.location %></p>
+                    
+                    <div class="track-stats">
+                        <div class="stat">
+                            <span>Schwierigkeit:</span>
+                            <span class="value">
+                                <%= '★'.repeat(track.difficulty) %>
+                                <%= '☆'.repeat(3 - track.difficulty) %>
+                            </span>
+                        </div>
+                        <div class="stat">
+                            <span>Länge:</span>
+                            <span class="value"><%= track.length %>m</span>
+                        </div>
+                        <div class="stat">
+                            <span>Höhendifferenz:</span>
+                            <span class="value"><%= track.altitude_diff %>m</span>
+                        </div>
+                    </div>
+
+                    <div class="training-bonus">
+                        <h3>Trainingsbonus</h3>
+                        <% Object.entries(track.training_bonus).forEach(([attr, bonus]) => { %>
+                            <div class="bonus">
+                                <span><%= attr %>:</span>
+                                <span class="value">+<%= bonus %></span>
+                            </div>
+                        <% }); %>
+                    </div>
+
+                    <form action="/training/<%= player.id %>/<%= track.id %>" method="POST">
+                        <button type="submit" class="button">Training starten</button>
+                    </form>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/rennen">Rennen</a>
+            <a href="/training">Training</a>
+            <a href="/rangliste">Rangliste</a>
+            <div style="float: right;">
+                <span>Willkommen, <%= username %>!</span>
+                <a href="/auth/logout">Logout</a>
+            </div>
+        </div>
+
+        <h1>Dein Dashboard</h1>
+        
+        <div class="dashboard-content">
+            <div class="dashboard-section">
+                <h2>Deine Skifahrer</h2>
+                <p>Du hast noch keine Skifahrer. <a href="/player/create">Erstelle deinen ersten Skifahrer</a></p>
+            </div>
+
+            <div class="dashboard-section">
+                <h2>Nächste Rennen</h2>
+                <p>Keine anstehenden Rennen.</p>
+            </div>
+
+            <div class="dashboard-section">
+                <h2>Deine Statistiken</h2>
+                <ul>
+                    <li>Gewonnene Rennen: 0</li>
+                    <li>Gesamtpunkte: 0</li>
+                    <li>Weltranglistenposition: -</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

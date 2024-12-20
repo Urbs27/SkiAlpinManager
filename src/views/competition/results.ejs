@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/competition">Wettkämpfe</a>
+        </div>
+
+        <h1>Ergebnisse - <%= competition.name %></h1>
+        <p>Ort: <%= competition.location %></p>
+        <p>Disziplin: <%= competition.discipline %></p>
+        <p>Datum: <%= new Date(competition.start_date).toLocaleDateString() %></p>
+
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Position</th>
+                    <th>Name</th>
+                    <th>Nation</th>
+                    <th>Zeit</th>
+                    <th>FIS-Punkte</th>
+                    <th>Weltcup-Punkte</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% results.forEach(result => { %>
+                    <tr>
+                        <td><%= result.position %></td>
+                        <td><%= result.player_name %></td>
+                        <td><%= result.team %></td>
+                        <td><%= result.time.toFixed(2) %>s</td>
+                        <td><%= result.fis_points.toFixed(2) %></td>
+                        <td><%= result.cup_points %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html> 

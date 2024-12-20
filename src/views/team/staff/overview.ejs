@@ -1,0 +1,44 @@
+<%- include('../../partials/header') %>
+
+<div class="container mt-4">
+    <h1>Personal-Übersicht für <%= team.name %></h1>
+    
+    <% if (Object.keys(staffByRole).length === 0) { %>
+        <p>Keine Mitarbeiter vorhanden. <a href="/team/<%= team.id %>/staff/hire">Jetzt einstellen</a>.</p>
+    <% } else { %>
+        <% for (const [role, members] of Object.entries(staffByRole)) { %>
+            <h3><%= role.charAt(0).toUpperCase() + role.slice(1) %></h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Qualität</th>
+                        <th>Gehalt</th>
+                        <th>Vertragsende</th>
+                        <th>Aktionen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% members.forEach(member => { %>
+                        <tr>
+                            <td><%= member.name %></td>
+                            <td><%= member.quality %></td>
+                            <td><%= member.salary.toLocaleString() %> €</td>
+                            <td><%= member.contract_end %></td>
+                            <td>
+                                <a href="/team/<%= team.id %>/staff/<%= member.id %>/extend" class="btn btn-sm btn-warning">Verlängern</a>
+                                <form action="/team/<%= team.id %>/staff/<%= member.id %>/fire" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-danger">Entlassen</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+    <% } %>
+
+    <a href="/team/<%= team.id %>/staff/hire" class="btn btn-primary mt-3">Neuen Mitarbeiter einstellen</a>
+</div>
+
+<%- include('../../partials/footer') %>

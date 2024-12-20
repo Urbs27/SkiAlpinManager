@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fehler</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+        </div>
+
+        <div class="error-container">
+            <h1>Fehler</h1>
+            <p class="error-message"><%= error %></p>
+            <% if (typeof details !== 'undefined' && details) { %>
+                <p class="error-details"><%= details %></p>
+            <% } %>
+            <a href="javascript:history.back()" class="button">Zurück</a>
+            <a href="/" class="button">Zur Startseite</a>
+        </div>
+    </div>
+</body>
+</html> 

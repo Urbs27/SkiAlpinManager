@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/player">Meine Skifahrer</a>
+        </div>
+
+        <h1>Neuen Skifahrer erstellen</h1>
+
+        <form action="/player/create" method="POST">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="team">Team:</label>
+                <input type="text" id="team" name="team" required>
+            </div>
+            <button type="submit" class="button">Erstellen</button>
+        </form>
+    </div>
+</body>
+</html> 

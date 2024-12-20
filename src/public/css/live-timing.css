@@ -1,0 +1,250 @@
+/* FIS-konforme Farbpalette */
+:root {
+    --fis-blue: #003366;
+    --fis-light-blue: #004d99;
+    --fis-red: #c62828;
+    --fis-yellow: #ffd700;
+    --timing-font: 'Roboto Mono', monospace;
+}
+
+/* Live Timing Basis-Layout */
+.live-timing {
+    font-family: var(--timing-font);
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* FIS Header */
+.fis-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background: white;
+    border-bottom: 3px solid var(--fis-blue);
+}
+
+/* Wettkampf-Header */
+.competition-header {
+    background: var(--fis-blue);
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.competition-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+/* Wetterbedingungen */
+.weather-info {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.weather-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Live-Timing Tabelle */
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.results-table th {
+    background: #f4f4f4;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid var(--fis-blue);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.results-table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Zeiten-Formatierung */
+.time-cell {
+    font-family: var(--timing-font);
+    text-align: right;
+    font-weight: 500;
+}
+
+.time-diff {
+    color: #666;
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
+.time-diff.positive {
+    color: var(--fis-red);
+}
+
+.time-diff.negative {
+    color: #388e3c;
+}
+
+/* Zwischenzeiten-Grid */
+.intermediate-times {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 8px;
+    font-size: 0.9em;
+}
+
+.split-time {
+    background: #f8f9fa;
+    padding: 4px 8px;
+    text-align: center;
+    border-radius: 3px;
+    border: 1px solid #eee;
+}
+
+/* Renn-Status */
+.race-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+/* Live-Indicator mit FIS-Design */
+.live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: var(--fis-red);
+    color: white;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.live-indicator::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    animation: blink 1s infinite;
+}
+
+/* Startlisten-Sektion */
+.start-list {
+    margin-top: 30px;
+}
+
+.bib-number {
+    font-weight: bold;
+    background: var(--fis-blue);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+/* Strecken-Info */
+.course-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+/* Sponsor-Banner mit FIS-Design */
+.sponsor-section {
+    margin: 30px 0;
+}
+
+.sponsor-banner {
+    background: white;
+    padding: 15px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.sponsor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+    align-items: center;
+    justify-items: center;
+}
+
+/* Dark Mode Anpassungen */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fis-blue: #004d99;
+    }
+
+    body {
+        background: #1a1a1a;
+        color: #fff;
+    }
+
+    .results-table {
+        background: #2d2d2d;
+    }
+
+    .results-table th {
+        background: #333;
+        border-bottom-color: var(--fis-blue);
+    }
+
+    .results-table td {
+        border-bottom-color: #404040;
+    }
+
+    .split-time {
+        background: #333;
+        border-color: #404040;
+    }
+
+    .race-status,
+    .course-info {
+        background: #2d2d2d;
+    }
+
+    .sponsor-banner {
+        background: #2d2d2d;
+        border-color: #404040;
+    }
+}
+
+/* Print-Optimierungen */
+@media print {
+    .live-indicator,
+    .sponsor-section {
+        display: none;
+    }
+
+    .results-table {
+        box-shadow: none;
+    }
+
+    .competition-header {
+        background: none;
+        color: black;
+        border: 1px solid #ccc;
+    }
+} 

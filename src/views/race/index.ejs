@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/player">Skifahrer</a>
+            <a href="/rennen" class="active">Rennen</a>
+        </div>
+
+        <h1>Rennen</h1>
+
+        <% if (races && races.length > 0) { %>
+            <div class="races-grid">
+                <% races.forEach(race => { %>
+                    <div class="race-card">
+                        <h2><%= race.name %></h2>
+                        <p class="location"><%= race.location %></p>
+                        <p class="discipline"><%= race.discipline %></p>
+                        <p class="date"><%= new Date(race.start_date).toLocaleDateString() %></p>
+                        
+                        <% if (race.status === 'finished') { %>
+                            <a href="/rennen/<%= race.id %>/results" class="button">Ergebnisse anzeigen</a>
+                        <% } else { %>
+                            <form action="/rennen/<%= race.id %>/anmelden" method="POST">
+                                <div class="form-group">
+                                    <label for="playerId">Skifahrer auswählen:</label>
+                                    <select name="playerId" id="playerId" required>
+                                        <option value="">Bitte wählen...</option>
+                                        <% players.forEach(player => { %>
+                                            <option value="<%= player.id %>"><%= player.name %></option>
+                                        <% }); %>
+                                    </select>
+                                </div>
+                                <button type="submit" class="button">Anmelden</button>
+                            </form>
+                            
+                            <form action="/rennen/<%= race.id %>/simulate" method="POST" class="simulate-form">
+                                <button type="submit" class="button simulate-button">Rennen starten</button>
+                            </form>
+                        <% } %>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <p>Keine Rennen verfügbar.</p>
+        <% } %>
+    </div>
+</body>
+</html> 

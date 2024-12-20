@@ -1,0 +1,113 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <div class="competition-header mb-4">
+        <h1>
+            <%= competition.name %>
+            <small class="text-muted"><%= competition.discipline %></small>
+        </h1>
+        <div class="competition-meta">
+            <span class="me-3">
+                <i class="fas fa-map-marker-alt"></i> 
+                <%= competition.location %>, <%= competition.country %>
+            </span>
+            <span class="me-3">
+                <i class="fas fa-calendar"></i>
+                <%= new Date(competition.start_date).toLocaleDateString('de-DE') %>
+            </span>
+            <span>
+                <i class="fas fa-mountain"></i>
+                FIS Homologation: <%= competition.homologation_nr %>
+            </span>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Streckendaten</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><strong>Länge:</strong> <%= competition.length %>m</li>
+                        <li><strong>Höhendifferenz:</strong> <%= competition.altitude_diff %>m</li>
+                        <li><strong>Starthöhe:</strong> <%= competition.start_altitude %>m</li>
+                        <li><strong>Zielhöhe:</strong> <%= competition.finish_altitude %>m</li>
+                        <% if (['GS', 'SL'].includes(competition.discipline)) { %>
+                            <li><strong>Tore:</strong> <%= competition.gates_count %></li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Bedingungen</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><strong>Wetter:</strong> <%= competition.weather_conditions %></li>
+                        <li><strong>Schnee:</strong> <%= competition.snow_conditions %></li>
+                        <li><strong>Temperatur Start:</strong> <%= competition.temperature_start %>°C</li>
+                        <li><strong>Temperatur Ziel:</strong> <%= competition.temperature_finish %>°C</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="results-section">
+        <h2>Ergebnisse</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Bib</th>
+                        <th>Name</th>
+                        <th>Nation</th>
+                        <% if (['GS', 'SL'].includes(competition.discipline)) { %>
+                            <th>1. Lauf</th>
+                            <th>2. Lauf</th>
+                        <% } %>
+                        <th>Zeit</th>
+                        <th>Diff</th>
+                        <th>FIS Punkte</th>
+                        <th>WC Punkte</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% results.forEach((result, index) => { %>
+                        <tr>
+                            <td><%= result.status === 'finished' ? (index + 1) : '-' %></td>
+                            <td><%= result.bib %></td>
+                            <td>
+                                <%= result.last_name.toUpperCase() %> <%= result.first_name %>
+                                <small class="text-muted d-block">FIS: <%= result.fis_code %></small>
+                            </td>
+                            <td><%= result.nationality %></td>
+                            <% if (['GS', 'SL'].includes(competition.discipline)) { %>
+                                <td><%= result.run1_time ? (result.run1_time.toFixed(2) + 's') : '-' %></td>
+                                <td><%= result.run2_time ? (result.run2_time.toFixed(2) + 's') : '-' %></td>
+                            <% } %>
+                            <td>
+                                <% if (result.status === 'finished') { %>
+                                    <%= result.total_time.toFixed(2) %>s
+                                <% } else { %>
+                                    <span class="badge bg-secondary"><%= result.status %></span>
+                                <% } %>
+                            </td>
+                            <td><%= result.diff ? ('+' + result.diff.toFixed(2)) : '-' %></td>
+                            <td><%= result.fis_points?.toFixed(2) || '-' %></td>
+                            <td><%= result.cup_points || '-' %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %> 

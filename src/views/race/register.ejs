@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/rennen">Rennen</a>
+        </div>
+
+        <div class="register-form">
+            <h1>Anmeldung: <%= race.name %></h1>
+            
+            <div class="race-info">
+                <p><strong>Ort:</strong> <%= race.location %></p>
+                <p><strong>Disziplin:</strong> <%= race.discipline %></p>
+                <p><strong>Datum:</strong> <%= new Date(race.start_date).toLocaleDateString() %></p>
+            </div>
+
+            <% if (players && players.length > 0) { %>
+                <form action="/rennen/<%= race.id %>/register" method="POST">
+                    <div class="form-group">
+                        <label for="playerId">Wähle einen Skifahrer:</label>
+                        <select name="playerId" id="playerId" required>
+                            <option value="">-- Bitte wählen --</option>
+                            <% players.forEach(player => { %>
+                                <option value="<%= player.id %>">
+                                    <%= player.name %> 
+                                    (<%= player.team %>, 
+                                    FIS: <%= player[`fis_points_${race.discipline.toLowerCase()}`] || 999 %>)
+                                </option>
+                            <% }); %>
+                        </select>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="button">Anmelden</button>
+                        <a href="/rennen/<%= race.id %>/details" class="button">Abbrechen</a>
+                    </div>
+                </form>
+            <% } else { %>
+                <p class="no-players">
+                    Keine Skifahrer verfügbar für die Anmeldung. 
+                    <a href="/player/create">Erstelle einen neuen Skifahrer</a>
+                </p>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html> 

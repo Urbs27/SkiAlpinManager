@@ -1,0 +1,43 @@
+<%- include('../../partials/header') %>
+
+<div class="container mt-4">
+    <h1>Einrichtungen für <%= team.name %></h1>
+    
+    <% if (facilities.length === 0) { %>
+        <p>Keine Einrichtungen vorhanden. <a href="/team/<%= team.id %>/facilities/build">Jetzt bauen</a>.</p>
+    <% } else { %>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Einrichtung</th>
+                    <th>Level</th>
+                    <th>Zustand</th>
+                    <th>Aktionen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% facilities.forEach(facility => { %>
+                    <tr>
+                        <td><%= facility.facility_type.charAt(0).toUpperCase() + facility.facility_type.slice(1) %></td>
+                        <td><%= facility.level %></td>
+                        <td><%= facility.condition %>%</td>
+                        <td>
+                            <% if (facility.needsMaintenance) { %>
+                                <form action="/team/<%= team.id %>/facilities/<%= facility.id %>/maintain" method="POST" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-info">Warten</button>
+                                </form>
+                            <% } %>
+                            <form action="/team/<%= team.id %>/facilities/<%= facility.id %>/upgrade" method="POST" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-success">Upgrade</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+
+    <a href="/team/<%= team.id %>/facilities/build" class="btn btn-primary mt-3">Neue Einrichtung bauen</a>
+</div>
+
+<%- include('../../partials/footer') %> 

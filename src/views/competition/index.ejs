@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/player">Skifahrer</a>
+            <a href="/rennen">Rennen</a>
+            <a href="/competition/standings">Weltcup-Standings</a>
+        </div>
+
+        <h1>Wettkämpfe</h1>
+
+        <div class="competitions-grid">
+            <% competitions.forEach(competition => { %>
+                <div class="competition-card">
+                    <h2><%= competition.name %></h2>
+                    <div class="competition-info">
+                        <p><strong>Ort:</strong> <%= competition.location %></p>
+                        <p><strong>Disziplin:</strong> <%= competition.discipline %></p>
+                        <p><strong>Kategorie:</strong> <%= competition.category %></p>
+                        <p><strong>Datum:</strong> <%= new Date(competition.start_date).toLocaleDateString() %></p>
+                        <p><strong>Preisgeld:</strong> <%= competition.prize_money.toLocaleString() %> €</p>
+                        
+                        <% if (competition.fis_points) { %>
+                            <p><strong>Min. FIS-Punkte:</strong> <%= competition.fis_points %></p>
+                        <% } %>
+                    </div>
+
+                    <div class="track-info">
+                        <h3>Strecke</h3>
+                        <p><strong>Name:</strong> <%= competition.track_name %></p>
+                        <p><strong>L��nge:</strong> <%= competition.length %>m</p>
+                        <p><strong>Höhendifferenz:</strong> <%= competition.altitude_diff %>m</p>
+                    </div>
+
+                    <% if (players && players.length > 0) { %>
+                        <form action="/competition/<%= competition.id %>/participate" method="POST">
+                            <select name="playerId" required>
+                                <option value="">Skifahrer auswählen</option>
+                                <% players.forEach(player => { %>
+                                    <option value="<%= player.id %>">
+                                        <%= player.name %> 
+                                        (<%= player[`fis_points_${competition.discipline}`] || 999 %> FIS-Punkte)
+                                    </option>
+                                <% }); %>
+                            </select>
+                            <button type="submit" class="button">Teilnehmen</button>
+                        </form>
+                    <% } else { %>
+                        <p class="no-players">Keine Skifahrer verfügbar</p>
+                    <% } %>
+                </div>
+            <% }); %>
+
+            <% if (competitions.length === 0) { %>
+                <p class="no-competitions">Keine anstehenden Wettkämpfe</p>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html> 

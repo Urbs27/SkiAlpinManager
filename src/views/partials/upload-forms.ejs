@@ -1,0 +1,73 @@
+<!-- Athletenfoto Upload Form -->
+<div class="upload-form athlete-photo">
+    <h3>Athletenfoto hochladen</h3>
+    <form id="athletePhotoForm" class="dropzone" enctype="multipart/form-data">
+        <div class="preview-container">
+            <img id="photoPreview" src="<%= athlete.photo_url || '/assets/default-athlete.png' %>" 
+                 alt="Athletenfoto">
+        </div>
+        <div class="upload-zone">
+            <input type="file" name="file" id="athletePhoto" accept="image/*" hidden>
+            <label for="athletePhoto" class="upload-label">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Foto auswählen oder hierher ziehen</span>
+            </label>
+        </div>
+        <div class="upload-info">
+            <small>Max. 5MB - JPG oder PNG</small>
+        </div>
+        <button type="submit" class="btn btn-primary" disabled>
+            <i class="fas fa-save"></i> Speichern
+        </button>
+    </form>
+</div>
+
+<!-- Streckenplan Upload Form -->
+<div class="upload-form course-map">
+    <h3>Streckenplan hochladen</h3>
+    <form id="courseMapForm" class="dropzone" enctype="multipart/form-data">
+        <div class="preview-container">
+            <% if (course.map_url) { %>
+                <img src="<%= course.map_url %>" alt="Streckenplan">
+            <% } else { %>
+                <div class="no-map">
+                    <i class="fas fa-mountain"></i>
+                    <span>Kein Streckenplan vorhanden</span>
+                </div>
+            <% } %>
+        </div>
+        <div class="upload-zone">
+            <input type="file" name="file" id="courseMap" accept="image/*,application/pdf" hidden>
+            <label for="courseMap" class="upload-label">
+                <i class="fas fa-map"></i>
+                <span>Streckenplan hochladen</span>
+            </label>
+        </div>
+        <div class="upload-info">
+            <small>Max. 10MB - JPG, PNG oder PDF</small>
+        </div>
+        <button type="submit" class="btn btn-primary" disabled>
+            <i class="fas fa-save"></i> Speichern
+        </button>
+    </form>
+</div>
+
+<!-- Ergebnisliste Upload -->
+<div class="upload-form results">
+    <h3>Offizielle Ergebnisliste</h3>
+    <form id="resultsForm" class="dropzone" enctype="multipart/form-data">
+        <div class="upload-zone">
+            <input type="file" name="file" id="resultsPdf" accept="application/pdf" hidden>
+            <label for="resultsPdf" class="upload-label">
+                <i class="fas fa-file-pdf"></i>
+                <span>PDF hochladen</span>
+            </label>
+        </div>
+        <div class="upload-info">
+            <small>Nur PDF - Max. 2MB</small>
+        </div>
+        <button type="submit" class="btn btn-primary" disabled>
+            <i class="fas fa-save"></i> Hochladen
+        </button>
+    </form>
+</div> 

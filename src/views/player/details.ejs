@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/player" class="active">Meine Skifahrer</a>
+            <a href="/rennen">Rennen</a>
+        </div>
+
+        <div class="player-details">
+            <h1><%= player.name %></h1>
+            <p>Team: <%= player.team %></p>
+
+            <div class="stats">
+                <h2>Statistiken</h2>
+                <ul>
+                    <li>Technik: <%= player.technik %></li>
+                    <li>Kraft: <%= player.kraft %></li>
+                    <li>Form: <%= player.form %></li>
+                    <!-- Weitere Statistiken hier -->
+                </ul>
+            </div>
+
+            <div class="results-section">
+                <h2>Letzte Ergebnisse</h2>
+                <% if (Array.isArray(results) && results.length > 0) { %>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th>Wettbewerb</th>
+                                <th>Platzierung</th>
+                                <th>Zeit</th>
+                                <th>Punkte</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% results.forEach(result => { %>
+                                <tr>
+                                    <td><%= result.competition_name %></td>
+                                    <td><%= result.rank %></td>
+                                    <td><%= result.time %></td>
+                                    <td><%= result.points %></td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p>Keine Ergebnisse verfügbar.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

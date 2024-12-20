@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/">Home</a>
+            <a href="/player">Skifahrer</a>
+            <a href="/rennen">Rennen</a>
+        </div>
+
+        <h1><%= player.name %></h1>
+        <p class="team">Team: <%= player.team %></p>
+
+        <div class="stats-grid">
+            <div class="stats-section">
+                <h2>Basis-Attribute</h2>
+                <div class="stat-list">
+                    <div class="stat-item">
+                        <span>Technik:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.technik %>%"></div>
+                            <span class="stat-value"><%= player.technik %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Kraft:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.kraft %>%"></div>
+                            <span class="stat-value"><%= player.kraft %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Ausdauer:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.ausdauer %>%"></div>
+                            <span class="stat-value"><%= player.ausdauer %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Beweglichkeit:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.beweglichkeit %>%"></div>
+                            <span class="stat-value"><%= player.beweglichkeit %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Gleichgewicht:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.gleichgewicht %>%"></div>
+                            <span class="stat-value"><%= player.gleichgewicht %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Reaktion:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.reaktion %>%"></div>
+                            <span class="stat-value"><%= player.reaktion %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Konzentration:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.konzentration %>%"></div>
+                            <span class="stat-value"><%= player.konzentration %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Risikobereitschaft:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.risikobereitschaft %>%"></div>
+                            <span class="stat-value"><%= player.risikobereitschaft %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <h2>Technische Attribute</h2>
+                <div class="stat-list">
+                    <div class="stat-item">
+                        <span>Kantentechnik:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.kantentechnik %>%"></div>
+                            <span class="stat-value"><%= player.kantentechnik %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Gleittechnik:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.gleittechnik %>%"></div>
+                            <span class="stat-value"><%= player.gleittechnik %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Kurventechnik:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.kurventechnik %>%"></div>
+                            <span class="stat-value"><%= player.kurventechnik %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Sprungtechnik:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.sprungtechnik %>%"></div>
+                            <span class="stat-value"><%= player.sprungtechnik %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Materialgefühl:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.materialgefuehl %>%"></div>
+                            <span class="stat-value"><%= player.materialgefuehl %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <h2>Disziplin-Stärken</h2>
+                <div class="stat-list">
+                    <div class="stat-item">
+                        <span>Abfahrt:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.disciplines.abfahrt %>%"></div>
+                            <span class="stat-value"><%= player.disciplines.abfahrt %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Slalom:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.disciplines.slalom %>%"></div>
+                            <span class="stat-value"><%= player.disciplines.slalom %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Riesenslalom:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.disciplines.riesenslalom %>%"></div>
+                            <span class="stat-value"><%= player.disciplines.riesenslalom %></span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span>Super-G:</span>
+                        <div class="stat-bar">
+                            <div class="stat-fill" style="width: <%= player.disciplines.superG %>%"></div>
+                            <span class="stat-value"><%= player.disciplines.superG %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <h2>Statistiken</h2>
+                <div class="stat-list simple">
+                    <div class="stat-item">
+                        <span>Rennen gesamt:</span>
+                        <span class="stat-value"><%= player.rennen_gesamt %></span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Siege:</span>
+                        <span class="stat-value"><%= player.siege %></span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Weltcup-Punkte:</span>
+                        <span class="stat-value"><%= player.punkte %></span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Preisgeld:</span>
+                        <span class="stat-value"><%= player.preisgeld %>€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="/training/<%= player.id %>" class="button">Trainieren</a>
+            <a href="/player" class="button secondary">Zurück zur Übersicht</a>
+        </div>
+    </div>
+</body>
+</html> 
