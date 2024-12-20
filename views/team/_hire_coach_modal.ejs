@@ -1,0 +1,40 @@
+<div class="modal fade" id="hireCoachModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Trainer einstellen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="/team/coach/hire/<%= team.id %>" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    
+                    <div class="mb-3">
+                        <label for="coachName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="coachName" name="name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="specialty" class="form-label">Spezialität</label>
+                        <select class="form-select" id="specialty" name="specialty" required>
+                            <option value="">Bitte wählen...</option>
+                            <option value="Technik">Technik</option>
+                            <option value="Kondition">Kondition</option>
+                            <option value="Mental">Mental</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="salary" class="form-label">Gehalt (€/Saison)</label>
+                        <input type="number" class="form-control" id="salary" name="salary" 
+                               min="30000" max="500000" step="1000" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                    <button type="submit" class="btn btn-primary">Einstellen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div> 

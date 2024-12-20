@@ -1,0 +1,83 @@
+<div class="container mt-4">
+    <div class="row">
+        <!-- Team-Informationen -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Team Details</h3>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editTeamModal">
+                        <i class="fas fa-edit"></i> Bearbeiten
+                    </button>
+                </div>
+                <div class="card-body">
+                    <h4 class="text-primary mb-3"><%= team.name %></h4>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Budget:</span>
+                            <strong><%= team.budget.toLocaleString('de-DE') %> €</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Reputation:</span>
+                            <div class="progress w-50">
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: <%= team.reputation %>%"
+                                     aria-valuenow="<%= team.reputation %>" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                    <%= team.reputation %>%
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Heimatort:</span>
+                            <strong><%= team.city || 'Nicht angegeben' %></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trainer -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Trainer</h3>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#hireCoachModal">
+                        <i class="fas fa-plus"></i> Trainer einstellen
+                    </button>
+                </div>
+                <div class="card-body">
+                    <% if (team.coaches && team.coaches.length > 0) { %>
+                        <div class="list-group">
+                            <% team.coaches.forEach(coach => { %>
+                                <div class="list-group-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="mb-1"><%= coach.name %></h5>
+                                            <small>Spezialität: <%= coach.specialty %></small>
+                                        </div>
+                                        <form action="/team/coach/fire/<%= coach.id %>" method="POST" class="d-inline">
+                                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                            <button type="submit" class="btn btn-danger btn-sm" 
+                                                    onclick="return confirm('Trainer wirklich entlassen?')">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            <% }); %>
+                        </div>
+                    <% } else { %>
+                        <p class="text-muted">Noch keine Trainer eingestellt.</p>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Team Modal -->
+<%- include('_edit_team_modal') %>
+
+<!-- Hire Coach Modal -->
+<%- include('_hire_coach_modal') %> 

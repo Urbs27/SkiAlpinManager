@@ -1,0 +1,150 @@
+<%- include('partials/header') %>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar ist bereits vorhanden -->
+        
+        <!-- Hauptinhalt -->
+        <div class="col main-content">
+            <!-- Hero-Bereich -->
+            <div class="hero-section text-center py-5 mb-4">
+                <h1 class="display-4">Willkommen beim Ski Alpin Manager</h1>
+                <p class="lead">Führe dein eigenes Ski-Team zum Erfolg!</p>
+                <% if (!user) { %>
+                    <div class="mt-4">
+                        <a href="/auth/register" class="btn btn-primary btn-lg me-2">
+                            <i class="fas fa-user-plus"></i> Jetzt registrieren
+                        </a>
+                        <a href="/auth/login" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-sign-in-alt"></i> Anmelden
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+
+            <!-- Statistiken -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-users fa-2x mb-2 text-primary"></i>
+                            <h5 class="card-title">Teams</h5>
+                            <p class="card-text display-6"><%= stats.totalTeams %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-trophy fa-2x mb-2 text-warning"></i>
+                            <h5 class="card-title">Wettkämpfe</h5>
+                            <p class="card-text display-6"><%= stats.totalCompetitions %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-skiing fa-2x mb-2 text-success"></i>
+                            <h5 class="card-title">Aktive Wettkämpfe</h5>
+                            <p class="card-text display-6"><%= stats.activeCompetitions %></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-user-friends fa-2x mb-2 text-info"></i>
+                            <h5 class="card-title">Athleten</h5>
+                            <p class="card-text display-6"><%= stats.totalPlayers %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Aktuelle Wettkämpfe -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Aktuelle Wettkämpfe</h5>
+                        </div>
+                        <div class="card-body">
+                            <% if (currentCompetitions && currentCompetitions.length > 0) { %>
+                                <div class="list-group">
+                                    <% currentCompetitions.forEach(competition => { %>
+                                        <div class="list-group-item">
+                                            <h6 class="mb-1"><%= competition.name %></h6>
+                                            <p class="mb-1"><%= competition.location %> - <%= competition.date %></p>
+                                        </div>
+                                    <% }); %>
+                                </div>
+                            <% } else { %>
+                                <p class="text-muted mb-0">Aktuell keine Wettkämpfe</p>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- News -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Neuigkeiten</h5>
+                        </div>
+                        <div class="card-body">
+                            <% if (latestNews && latestNews.length > 0) { %>
+                                <div class="list-group">
+                                    <% latestNews.forEach(news => { %>
+                                        <a href="/news/<%= news.id %>" class="list-group-item list-group-item-action">
+                                            <div class="d-flex justify-content-between">
+                                                <h6 class="mb-1"><%= news.title %></h6>
+                                                <small><%= news.date %></small>
+                                            </div>
+                                        </a>
+                                    <% }); %>
+                                </div>
+                            <% } else { %>
+                                <p class="text-muted mb-0">Keine aktuellen News</p>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.hero-section {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 4rem 2rem;
+}
+
+.hover-card {
+    transition: transform 0.2s;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-item i {
+    font-size: 2rem;
+}
+
+.stat-item h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+</style>
+
+<%- include('partials/footer') %> 

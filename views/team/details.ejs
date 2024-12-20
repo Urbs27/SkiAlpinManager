@@ -1,0 +1,157 @@
+<%- include('../partials/header') %>
+
+<main class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h1><i class="fas fa-users"></i> <%= team.name %> (<%= team.nation %>)</h1>
+        </div>
+        <div class="col-md-4 text-end">
+            <a href="/team/edit/<%= team.id %>" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Bearbeiten
+            </a>
+        </div>
+    </div>
+
+    <!-- Übersicht -->
+    <div class="card mt-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3>Übersicht</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-euro-sign"></i> Budget</h5>
+                    <p class="h3"><%= team.budget.toLocaleString('de-DE') %> €</p>
+                </div>
+                <div class="col-md-4">
+                    <h5><i class="fas fa-star"></i> Reputation</h5>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" 
+                             style="width: <%= team.reputation %>%"
+                             aria-valuenow="<%= team.reputation %>" 
+                             aria-valuemin="0" aria-valuemax="100">
+                            <%= team.reputation %>%
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5><i class="fas fa-user-friends"></i> Spieler</h5>
+                    <p class="h3"><%= team.players.length %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personal -->
+    <div class="card mt-4 shadow-sm">
+        <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+            <h3>Personal</h3>
+            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#hireStaffModal">
+                <i class="fas fa-plus"></i> Personal einstellen
+            </button>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Name</th>
+                            <th>Qualität</th>
+                            <th>Gehalt</th>
+                            <th>Vertragsende</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% team.staff.forEach(staff => { %>
+                            <tr>
+                                <td><%= staff.role %></td>
+                                <td><%= staff.name %></td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-info" role="progressbar" 
+                                             style="width: <%= staff.quality %>%"
+                                             aria-valuenow="<%= staff.quality %>" 
+                                             aria-valuemin="0" aria-valuemax="100">
+                                            <%= staff.quality %>%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><%= staff.salary.toLocaleString('de-DE') %> €</td>
+                                <td><%= new Date(staff.contract_end).toLocaleDateString('de-DE') %></td>
+                                <td>
+                                    <form action="/team/staff/delete/<%= staff.id %>" method="POST" class="d-inline">
+                                        <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Mitarbeiter wirklich entlassen?')">
+                                            <i class="fas fa-trash-alt"></i> Entlassen
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Einrichtungen -->
+    <div class="card mt-4 shadow-sm">
+        <div class="card-header bg-info text-white">
+            <h3>Einrichtungen</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <% team.facilities.forEach(facility => { %>
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= facility.facility_type %></h5>
+                                <p class="card-text">
+                                    Level: <%= facility.level %><br>
+                                    Zustand: <%= facility.condition %>%
+                                </p>
+                                <button class="btn btn-primary btn-sm"
+                                        onclick="upgradeFacility('<%= facility.id %>')">
+                                    <i class="fas fa-arrow-up"></i> Ausbauen
+                                </button>
+                                <button class="btn btn-secondary btn-sm"
+                                        onclick="repairFacility('<%= facility.id %>')">
+                                    <i class="fas fa-tools"></i> Reparieren
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Modal für Personal einstellen -->
+<div class="modal fade" id="hireStaffModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Personal einstellen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/team/staff/hire/<%= team.id %>" method="POST">
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Position</label>
+                        <select class="form-select" id="role" name="role" required>
+                            <option value="head_coach">Cheftrainer</option>
+                            <option value="technician">Techniker</option>
+                            <option value="physio">Physiotherapeut</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Personal suchen</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %> 

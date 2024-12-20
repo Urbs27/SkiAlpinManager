@@ -1,0 +1,50 @@
+<div class="sidebar">
+    <nav class="nav flex-column">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-skiing"></i> Ski Alpin Manager</h3>
+        </div>
+
+        <a class="nav-link <%= locals.currentPage === 'home' ? 'active' : '' %>" href="/">
+            <i class="fas fa-home"></i> Home
+        </a>
+        <a class="nav-link <%= locals.currentPage === 'calendar' ? 'active' : '' %>" href="/calendar">
+            <i class="fas fa-calendar-alt"></i> Wettkampfkalender
+        </a>
+        <a class="nav-link <%= locals.currentPage === 'live-results' ? 'active' : '' %>" href="/live-results">
+            <i class="fas fa-trophy"></i> Live-Ergebnisse
+        </a>
+        <a class="nav-link <%= locals.currentPage === 'news' ? 'active' : '' %>" href="/news">
+            <i class="fas fa-newspaper"></i> News
+        </a>
+        
+        <% if (locals.user) { %>
+            <div class="nav-divider"></div>
+            <a class="nav-link <%= locals.currentPage === 'dashboard' ? 'active' : '' %>" href="/dashboard">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a class="nav-link <%= locals.currentPage === 'team' ? 'active' : '' %>" href="/team">
+                <i class="fas fa-users"></i> Team
+            </a>
+            <div class="nav-divider"></div>
+            <a class="nav-link" href="/profile">
+                <i class="fas fa-user"></i> <%= user.username %>
+            </a>
+            <a class="nav-link" href="/auth/logout">
+                <i class="fas fa-sign-out-alt"></i> Abmelden
+            </a>
+        <% } else { %>
+            <div class="nav-divider"></div>
+            <a class="nav-link" href="/auth/login">
+                <i class="fas fa-sign-in-alt"></i> Anmelden
+            </a>
+            <a class="nav-link" href="/auth/register">
+                <i class="fas fa-user-plus"></i> Registrieren
+            </a>
+        <% } %>
+        
+        <div class="nav-divider"></div>
+        <a class="nav-link <%= locals.currentPage === 'about' ? 'active' : '' %>" href="/about">
+            <i class="fas fa-info-circle"></i> Über uns
+        </a>
+    </nav>
+</div> 

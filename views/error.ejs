@@ -1,0 +1,93 @@
+<%- include('partials/header') %>
+
+<main class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <div class="error-icon mb-4">
+                        <i class="fas fa-exclamation-circle fa-4x text-danger"></i>
+                    </div>
+                    
+                    <h1 class="card-title text-danger mb-4">
+                        <i class="fas fa-exclamation-triangle"></i> 
+                        Oops! Ein Fehler ist aufgetreten
+                    </h1>
+
+                    <div class="alert alert-danger">
+                        <p class="mb-0"><%= error %></p>
+                        
+                        <% if (locals.details) { %>
+                            <hr>
+                            <p class="small mb-0 text-muted">
+                                <i class="fas fa-info-circle"></i> 
+                                Weitere Details:
+                            </p>
+                            <p class="mb-0"><%= details %></p>
+                        <% } %>
+                    </div>
+
+                    <div class="error-actions mt-4">
+                        <a href="javascript:history.back()" class="btn btn-secondary me-2">
+                            <i class="fas fa-arrow-left"></i> 
+                            Zurück
+                        </a>
+                        <a href="/" class="btn btn-primary">
+                            <i class="fas fa-home"></i> 
+                            Zur Startseite
+                        </a>
+                    </div>
+
+                    <% if (process.env.NODE_ENV !== 'production') { %>
+                        <div class="dev-info mt-4 text-start">
+                            <div class="card bg-light">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-bug"></i> 
+                                        Debug-Informationen
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <pre class="mb-0"><code><%= JSON.stringify(error, null, 2) %></code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <p class="text-muted">
+                    Benötigen Sie Hilfe? 
+                    <a href="/contact" class="text-decoration-none">
+                        Kontaktieren Sie unseren Support
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/footer') %>
+
+<style>
+.error-icon {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0); }
+    20%, 80% { transform: translate3d(2px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+.dev-info pre {
+    max-height: 200px;
+    overflow-y: auto;
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
+</style> 

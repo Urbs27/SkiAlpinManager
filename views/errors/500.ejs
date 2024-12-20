@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+
+<div class="error-container">
+    <h1>500 - Serverfehler</h1>
+    <p>Es tut uns leid, aber etwas ist schiefgelaufen.</p>
+    
+    <% if (process.env.NODE_ENV === 'development' && error) { %>
+        <div class="error-details">
+            <pre><%= error.stack %></pre>
+        </div>
+    <% } %>
+    
+    <a href="/" class="btn btn-primary">Zurück zur Startseite</a>
+</div>
+
+<%- include('../partials/footer') %> 

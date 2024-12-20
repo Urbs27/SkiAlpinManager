@@ -1,0 +1,59 @@
+<%- include('../partials/header') %>
+
+<main class="container mt-4">
+    <h1><i class="fas fa-users"></i> Meine Teams</h1>
+    
+    <% if (teams && teams.length > 0) { %>
+        <% teams.forEach(team => { %>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title"><%= team.name %> (<%= team.nation %>)</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h5><i class="fas fa-euro-sign"></i> Budget</h5>
+                            <p><%= team.budget.toLocaleString('de-DE') %> €</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h5><i class="fas fa-star"></i> Reputation</h5>
+                            <p><%= team.reputation %>/100</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h5><i class="fas fa-user-friends"></i> Spieler</h5>
+                            <p><%= team.player_count || 0 %></p>
+                        </div>
+                    </div>
+                    
+                    <% if (team.staff_roles) { %>
+                        <h5><i class="fas fa-briefcase"></i> Personal</h5>
+                        <p><%= team.staff_roles %></p>
+                    <% } %>
+                    
+                    <div class="mt-3">
+                        <a href="/team/<%= team.id %>" class="btn btn-primary">
+                            <i class="fas fa-info-circle"></i> Details
+                        </a>
+                        <form action="/team/delete/<%= team.id %>" method="POST" class="d-inline">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Team wirklich löschen?')">
+                                <i class="fas fa-trash-alt"></i> Löschen
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <div class="alert alert-info">
+            <p>Du hast noch keine Teams. Erstelle dein erstes Team!</p>
+        </div>
+    <% } %>
+    
+    <div class="mt-4">
+        <a href="/team/create" class="btn btn-success">
+            <i class="fas fa-plus-circle"></i> Neues Team erstellen
+        </a>
+    </div>
+</main>
+
+<%- include('../partials/footer') %> 
